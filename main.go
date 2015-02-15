@@ -32,7 +32,8 @@ func renderTemplate(w http.ResponseWriter, tmpl string, p *Page) {
 func handler(w http.ResponseWriter, r *http.Request) {
 	// w.Header().Set("Content-Type", "application/json")
 	if r.Method == "GET" {
-		p := &Page{Title: "Index"}
+		log.Println(r.URL.Path[1:])
+		p := &Page{Title: "What do you want me to say?"}
 		renderTemplate(w, "views/index.html", p)
 		// go queue(r.URL.Query()["tl"][0], r.URL.Query()["q"][0])
 		// fmt.Fprint(w, Response{"success": true, "message": "Queued"})
@@ -44,6 +45,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	http.HandleFunc("/", handler)
 	http.HandleFunc("/static/", func(w http.ResponseWriter, r *http.Request) {
+		log.Println(r.URL.Path[1:])
 		http.ServeFile(w, r, r.URL.Path[1:])
 	})
 	log.Fatal(http.ListenAndServe(":8000", nil))
