@@ -35,7 +35,7 @@ func (r Response) String() (s string) {
 }
 
 func renderTemplate(w http.ResponseWriter, tmpl string, p *Page) {
-	t, _ := template.ParseFiles(tmpl)
+	t, _ := template.ParseFiles("public/" + tmpl)
 	t.Execute(w, p)
 }
 
@@ -125,7 +125,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 
 func staticHandler(w http.ResponseWriter, r *http.Request) {
 	log.Println(r.URL.Path[1:])
-	http.ServeFile(w, r, r.URL.Path[1:])
+	http.ServeFile(w, r, "public/"+r.URL.Path[1:])
 }
 
 func main() {
