@@ -4,19 +4,19 @@
    Author's custom styles
    ========================================================================== */
 
+h1 {
+  margin-bottom: 30px;
+}
 
+.btn {
+  margin: 10px 0 10px 0;
+}
 
+.lang-select {
+  margin: 10px 0 0 0;
+  width: 100px;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+.success {
+  display: block;
+}
