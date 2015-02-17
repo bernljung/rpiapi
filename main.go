@@ -92,6 +92,17 @@ func speakHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func apidocHandler(w http.ResponseWriter, r *http.Request) {
+	p := &Page{}
+	if r.Method == "GET" {
+		log.Println(r.URL.Path)
+		p = &Page{Title: "API"}
+		renderTemplate(w, "templates/apidoc.html", p)
+	} else {
+		http.NotFound(w, r)
+	}
+}
+
 func indexHandler(w http.ResponseWriter, r *http.Request) {
 	p := &Page{}
 	if len(r.URL.Path[1:]) == 0 {
@@ -135,7 +146,8 @@ func main() {
 
 	http.HandleFunc("/", indexHandler)
 	http.HandleFunc("/static/", staticHandler)
-	http.HandleFunc("/api/speak", speakHandler)
+	http.HandleFunc("/api/v1/docs", apidocHandler)
+	http.HandleFunc("/api/v1/speak", speakHandler)
 
 	message := fmt.Sprintf("Starting server on :%v", *port)
 	log.Println(message)
