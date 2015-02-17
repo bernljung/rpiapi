@@ -27,14 +27,14 @@
                         <form class="form" action="/" method="post">
                             <div class="form-group">
                                 <div class="col-md-5 col-sm-10">
-                                    <textarea  class="form-control" name="speech" id="speech"  maxlength="100" placeholder="Here's Johnny!">{{ .Speech }}</textarea>
+                                    <textarea  class="form-control" name="speech" id="speech"  maxlength="100" placeholder="">{{ .Speech }}</textarea>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-10">
                                     <select name="lang" class="form-control lang-select">
-                                        <option value="en">English</option>
-                                        <option value="sv" {{ if eq .Lang "sv" }}selected="selected"{{ end }}>Swedish</option>
+                                        <option value="sv">Swedish</option>
+                                        <option value="en"  {{ if eq .Lang "en" }}selected="selected"{{ end }}>English</option>
                                     </select>
                                     <button type="submit" class="btn btn-primary">Say it!</button>
                                 </div>
