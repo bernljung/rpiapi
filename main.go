@@ -14,7 +14,8 @@ import (
 var everyspeakerPort *int
 
 type Page struct {
-	Title, Flash string
+	Title, Flash, Lang, Speech string
+	Success                    bool
 }
 
 type JSONResponse struct {
@@ -117,10 +118,13 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 			speech := r.FormValue("speech")
 
 			if message, valid := validate(lang, speech); valid {
-				message, _ := postToEverySpeaker(lang, speech)
-				p = &Page{Flash: message}
+				if message, error := postToEverySpeaker(lang, speech); error {
+					p = &Page{Flash: message, Success: true}
+				} else {
+					p = &Page{Flash: message, Lang: lang, Speech: speech, Success: false}
+				}
 			} else {
-				p = &Page{Flash: message}
+				p = &Page{Flash: message, Lang: lang, Speech: speech, Success: false}
 			}
 
 			p.Title = "What do you want me to say?"

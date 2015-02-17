@@ -10,6 +10,7 @@ h1 {
 
 .btn {
   margin: 10px 0 10px 0;
+  display: block;
 }
 
 .lang-select {
@@ -17,8 +18,8 @@ h1 {
   width: 100px;
 }
 
-.success {
-  display: block;
+#flash {
+  margin: 10px;
 }
 
 .content {
