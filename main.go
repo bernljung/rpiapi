@@ -119,7 +119,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 
 			if message, valid := validate(lang, speech); valid {
 				if message, error := postToEverySpeaker(lang, speech); error {
-					p = &Page{Flash: message, Success: true}
+					p = &Page{Flash: message, Lang: lang, Success: true}
 				} else {
 					p = &Page{Flash: message, Lang: lang, Speech: speech, Success: false}
 				}
