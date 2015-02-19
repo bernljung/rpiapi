@@ -8,20 +8,14 @@ h1 {
   margin-bottom: 30px;
 }
 
-.btn {
-  margin: 10px 0 10px 0;
+.select-doc {
+  padding: 9px;
+  margin: 10px;
   display: block;
 }
 
-.lang-select {
-  margin: 10px 0 0 0;
-  width: 100px;
-  display: inline;
-}
-
-.select-doc {
-  padding: 9px;
-  margin-left: 5px;
+#speech {
+  display: block;
 }
 
 #flash {
