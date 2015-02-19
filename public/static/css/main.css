@@ -16,6 +16,12 @@ h1 {
 .lang-select {
   margin: 10px 0 0 0;
   width: 100px;
+  display: inline;
+}
+
+.select-doc {
+  padding: 9px;
+  margin-left: 5px;
 }
 
 #flash {
@@ -28,4 +34,8 @@ h1 {
 
 .headrow {
   border-top: 0 !important;
+}
+
+.clear {
+  clear: both;
 }
