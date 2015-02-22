@@ -1,35 +1,85 @@
-window.onload = function () {
-  $('#speech').focus();
-  $('#speech')[0].setSelectionRange(2, 2);
-  $('#speech').keydown(function(e) {
-    if (e.keyCode == 13) {
-      var text = $.trim($('#speech').val());
-      var prefix = text.substr(0,2);
+$(function() {
+  var conn;
+  var reconnectIntervalId;
 
-      switch(prefix) {
-        case "s:":
-          $('#lang').val("sv");
-          $('#speech').val(text.substr(2, text.length));
-          break;
-        case "e:":
-          $('#lang').val("en");
-          $('#speech').val(text.substr(2, text.length));
-          break;
-        default:
-          $('#lang').val("sv");
-          break;
-      }
+  var connect = function(){
+    conn = new WebSocket("ws://" + window.location.host + "/ws");
+    return conn.readyState === 1;
+  }
 
-      $(this.form).submit();
-
-      if ($('#lang').val() === "en") {
-        $('#speech').val("e:");
+  var reconnect = function() {
+    reconnectIntervalId = setInterval(function(){
+      if(conn.readyState !== 1){
+        connect();
       } else {
-        $('#speech').val("s:");
+        clearInterval(reconnectIntervalId);
       }
-      return false;
-     }
-  });
+    }, 5000);
+  }
 
-  $('#flash.alert-success').fadeOut(7000);
-};
+  if (window["speechSynthesis"] && window["WebSocket"]) {
+    if (!connect()){
+      reconnect();
+    }
+
+    conn.onclose = function(e) {
+      reconnect();
+    }
+
+    conn.onmessage = function(e) {
+      if($("#speaker").is(":checked")) {
+        var data = JSON.parse(e.data);
+        var u = new SpeechSynthesisUtterance();
+        u.text = data.text;
+        u.lang = data.lang;
+        window.speechSynthesis.speak(u);
+      }
+    }
+
+    var VALID_LANGS = {
+      "de": "de-DE",
+      "da": "da-DK",
+      "en": "en-US",
+      "gb": "en-GB",
+      "es": "es-ES",
+      "fi": "fi-FI",
+      "fr": "fr-FR",
+      "no": "nb-NO",
+      "ru": "ru-RU",
+      "sv": "sv-SE"
+    };
+
+    $("#text-field").focus();
+    $("#text-field")[0].setSelectionRange(3, 3);
+
+    $("#text-field").keydown(function(e) {
+      if (e.keyCode == 13) {
+        var text = $.trim($("#text-field").val());
+        var prefix = text.substr(0,text.indexOf(":") + 1);
+        var data = {};
+
+        var lang = prefix.substr(0,prefix.indexOf(":"));
+        if (Object.keys(VALID_LANGS).indexOf(lang) != -1) {
+          data.lang = VALID_LANGS[lang];
+          data.text = $.trim(text.substr(lang.length + 1, text.length));
+
+        } else {
+          lang = "sv";
+          data.lang = "sv-SE";
+          data.text = text;
+        }
+
+        $("#text-field").val(lang + ":");
+        conn.send(JSON.stringify(data));
+
+        return false;
+       }
+    });
+
+    $("#flash").hide();
+
+  } else {
+    $("#not-supported").show();
+  }
+
+});

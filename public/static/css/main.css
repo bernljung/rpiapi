@@ -14,6 +14,10 @@ h1 {
   display: block;
 }
 
+table td {
+  width: 100px;
+}
+
 #speech {
   display: block;
 }
@@ -32,4 +36,47 @@ h1 {
 
 .clear {
   clear: both;
+}
+
+input[type=checkbox] {
+  visibility: hidden;
+}
+
+input[type=checkbox]:after {
+  visibility: visible;
+  font-family: FontAwesome;
+  font-size:30px;
+  margin-top: -30px;
+  margin-left: 10px;
+  background-color: white;
+  display: block;
+  color: gray;
+}
+
+input[type=checkbox]:after
+{
+  content: '\f027';
+}
+
+ input[type=checkbox]:checked:after
+{
+  content: '\f028';
+}
+
+#not-supported {
+  display: none;
+  position:absolute;
+  top:0;
+  left:0;
+  padding:100px;
+  width: 100%;
+  height: 100%;
+  background:rgba(0,0,0,0.85);
+  font-size: 30px;
+  color: white;
+  text-align: center;
+}
+
+#not-supported a {
+  text-decoration: none;
 }

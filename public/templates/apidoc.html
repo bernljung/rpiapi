@@ -45,12 +45,46 @@
                                     </div>
 
                                     <div class="api-parameters">
-                                        <div class="col-sm-3"><code>speech</code></div>
-                                        <div class="col-sm-9">The speech you want to give.</div>
+                                        <div class="col-sm-3"><code>text</code></div>
+                                        <div class="col-sm-9">The text you want to play.</div>
                                     </div>
                                      <div class="api-parameters">
                                         <div class="col-sm-3"><code>lang</code></div>
-                                        <div class="col-sm-9">Output language, use "en" or "sv".</div>
+                                        <div class="col-sm-9">Output language.
+                                        <table>
+                                            <tr>
+                                                <td>German: </td>
+                                                <td><code>de-DE</code></td>
+                                            <tr>
+                                                <td>Danish: </td>
+                                                <td><code>da-DK</code></td>
+                                            <tr>
+                                                <td>American: </td>
+                                                <td><code>en-US</code></td>
+                                            <tr>
+                                                <td>British: </td>
+                                                <td><code>en-GB</code></td>
+                                            <tr>
+                                                <td>Spanish: </td>
+                                                <td><code>es-ES</code></td>
+                                            <tr>
+                                                <td>Finnish: </td>
+                                                <td><code>fi-FI</code></td>
+                                            <tr>
+                                                <td>French: </td>
+                                                <td><code>fr-FR</code></td>
+                                            <tr>
+                                                <td>Norwegian: </td>
+                                                <td><code>nb-NO</code></td>
+                                            <tr>
+                                                <td>Russian: </td>
+                                                <td><code>ru-RU</code></td>
+                                            <tr>
+                                                <td>Swedish: </td>
+                                                <td><code>sv-SE</code></td>
+                                            </tr>
+                                        </table>
+                                        </div>
                                     </div>
 
                                     <div class="api-parameters">
@@ -70,13 +104,13 @@
                                 </td>
                             <td class="col-sm-5">
 
-                                <pre><code class="api-code">curl --data "speech=I love the smell of napalm in the morning.&lang=en" {host}/api/v1/speak</code></pre>
+                                <pre><code class="api-code">curl --data "text=I love the smell of napalm in the morning.&lang=en-US" {host}/api/v1/speak</code></pre>
                                 <pre><code class="api-code">
 $url = $host.'/api/v1/speak';
 
 $fields = array(
-            'speech' => "I'm going to make him an offer he can't refuse.",
-            'lang' => 'en'
+            'text' => "I'm going to make him an offer he can't refuse.",
+            'lang' => 'en-US'
         );
 
 $fields_string = "";
