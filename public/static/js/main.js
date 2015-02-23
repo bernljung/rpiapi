@@ -9,9 +9,10 @@ $(function() {
   }
 
   var reconnect = function() {
+    console.log("Reconnecting.");
+    connect();
     reconnectIntervalId = setInterval(function(){
       if(conn.readyState !== 1){
-        console.log("Reconnecting.");
         connect();
         if(conn.readyState === 1){
           console.log("Reconnected.");
