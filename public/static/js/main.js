@@ -18,7 +18,6 @@ $(function() {
         }
       } else {
         console.log("Reconnected.");
-        console.log(conn.readyState !== 1);
         clearInterval(reconnectIntervalId);
       }
     }, 5000);
