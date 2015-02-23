@@ -23,6 +23,12 @@ $(function() {
     }
 
     conn.onclose = function(e) {
+      console.log("Connection closed.", e);
+      reconnect();
+    }
+
+    conn.onerror = function(e) {
+      console.log("Connection error: ", e);
       reconnect();
     }
 
