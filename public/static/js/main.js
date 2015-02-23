@@ -10,18 +10,15 @@ $(function() {
 
   var reconnect = function() {
     reconnectIntervalId = setInterval(function(){
-      console.log("Interval readyState", conn.readyState);
       if(conn.readyState !== 1){
         console.log("Reconnecting.");
         connect();
         if(conn.readyState === 1){
-          console.log("Connection reopened.");
+          console.log("Reconnected.");
         }
       } else {
-        console.log("ReadyState: ", conn.readyState);
+        console.log("Reconnected.");
         console.log(conn.readyState !== 1);
-        console.log("Reopened?: ", conn);
-        console.log("Connection reopened.");
         clearInterval(reconnectIntervalId);
       }
     }, 5000);
@@ -29,16 +26,16 @@ $(function() {
 
   var bindSocketEvents = function() {
     conn.onopen = function(e) {
-      console.log("Connection opened.", e);
+      console.log("Connection opened.");
     }
 
     conn.onclose = function(e) {
-      console.log("Connection closed.", e);
+      console.log("Connection closed.");
       reconnect();
     }
 
     conn.onerror = function(e) {
-      console.log("Connection error: ", e);
+      console.log("Connection error.");
       reconnect();
     }
 
