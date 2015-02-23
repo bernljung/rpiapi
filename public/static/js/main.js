@@ -17,6 +17,8 @@ $(function() {
           console.log("Connection reopened.");
         }
       } else {
+        console.log(conn.readyState !== 1);
+        console.log("Reopened?: ", conn);
         console.log("Connection reopened.");
         clearInterval(reconnectIntervalId);
       }
