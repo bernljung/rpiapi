@@ -80,3 +80,9 @@ input[type=checkbox]:after
 #not-supported a {
   text-decoration: none;
 }
+
+#no-speak {
+  display:none;
+  margin-top: -30px;
+  padding: 15px;
+}

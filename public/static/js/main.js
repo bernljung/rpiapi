@@ -48,7 +48,7 @@ $(function() {
     }
 
     conn.onmessage = function(e) {
-      if($("#speaker").is(":checked")) {
+      if(window["speechSynthesis"] && $("#speaker").is(":checked")) {
         var data = JSON.parse(e.data);
         var u = new SpeechSynthesisUtterance();
         u.text = data.text;
@@ -58,7 +58,7 @@ $(function() {
     }
   }
 
-  if (window["speechSynthesis"] && window["WebSocket"]) {
+  if (window["WebSocket"]) {
     connect();
 
     bindSocketEvents();
@@ -104,6 +104,11 @@ $(function() {
     });
 
     $("#flash").hide();
+
+    if(!window["speechSynthesis"]) {
+      $("#no-speak").show();
+      $("#speaker").hide();
+    }
 
   } else {
     $("#not-supported").show();
