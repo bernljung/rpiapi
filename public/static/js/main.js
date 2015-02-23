@@ -3,13 +3,13 @@ $(function() {
   var reconnectIntervalId;
 
   var connect = function(){
+    console.log("Connecting WebSocket.");
     conn = new WebSocket("ws://" + window.location.host + "/ws");
-    return conn.readyState === 1;
   }
 
   var reconnect = function() {
     reconnectIntervalId = setInterval(function(){
-      console.log("interval: ", conn);
+      console.log("Interval readyState", conn.readyState);
       if(conn.readyState !== 1){
         console.log("Reconnecting.");
         connect();
@@ -17,6 +17,7 @@ $(function() {
           console.log("Connection reopened.");
         }
       } else {
+        console.log("ReadyState: ", conn.readyState);
         console.log(conn.readyState !== 1);
         console.log("Reopened?: ", conn);
         console.log("Connection reopened.");
