@@ -5,6 +5,7 @@ $(function() {
   var connect = function(){
     console.log("Connecting WebSocket.");
     conn = new WebSocket("ws://" + window.location.host + "/ws");
+    bindSocketEvents();
   }
 
   var reconnect = function() {
@@ -26,9 +27,7 @@ $(function() {
     }, 5000);
   }
 
-  if (window["speechSynthesis"] && window["WebSocket"]) {
-    connect();
-
+  var bindSocketEvents = function() {
     conn.onopen = function(e) {
       console.log("Connection opened.", e);
     }
@@ -52,6 +51,12 @@ $(function() {
         window.speechSynthesis.speak(u);
       }
     }
+  }
+
+  if (window["speechSynthesis"] && window["WebSocket"]) {
+    connect();
+
+    bindSocketEvents();
 
     var VALID_LANGS = {
       "de": "de-DE",
