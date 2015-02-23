@@ -16,6 +16,7 @@ $(function() {
           console.log("Connection reopened.");
         }
       } else {
+        console.log("Connection reopened.");
         clearInterval(reconnectIntervalId);
       }
     }, 5000);
