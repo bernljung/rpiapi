@@ -1,14 +1,16 @@
 $(function() {
   var conn;
   var reconnectIntervalId;
+  var reconnecting = false;
 
   var connect = function(){
-    console.log("Connecting WebSocket.");
+    console.log("Connecting to WebSocket.");
     conn = new WebSocket("ws://" + window.location.host + "/ws");
     bindSocketEvents();
   }
 
   var reconnect = function() {
+    reconnecting = true;
     console.log("Reconnecting.");
     connect();
     reconnectIntervalId = setInterval(function(){
@@ -16,9 +18,11 @@ $(function() {
         connect();
         if(conn.readyState === 1){
           console.log("Reconnected.");
+          reconnecting = false;
         }
       } else {
         console.log("Reconnected.");
+        reconnecting = false;
         clearInterval(reconnectIntervalId);
       }
     }, 5000);
@@ -31,12 +35,16 @@ $(function() {
 
     conn.onclose = function(e) {
       console.log("Connection closed.");
-      reconnect();
+      if(!reconnecting){
+        reconnect();
+      }
     }
 
     conn.onerror = function(e) {
       console.log("Connection error.");
-      reconnect();
+      if(!reconnecting){
+        reconnect();
+      }
     }
 
     conn.onmessage = function(e) {
