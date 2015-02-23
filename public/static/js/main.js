@@ -3,7 +3,7 @@ $(function() {
   var reconnectIntervalId;
 
   var connect = function(){
-    conn = new WebSocket("ws://{{$}}/ws");
+    conn = new WebSocket("ws://" + window.location.hostname + ":8080/ws");
     return conn.readyState === 1;
   }
 
