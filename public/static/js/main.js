@@ -24,10 +24,9 @@ $(function() {
 
   if (window["speechSynthesis"] && window["WebSocket"]) {
     connect();
-    if (conn.readyState !== 1){
-      reconnect();
-    } else {
-      console.log("Connection opened.");
+
+    conn.onopen = function(e) {
+      console.log("Connection opened.", e);
     }
 
     conn.onclose = function(e) {
