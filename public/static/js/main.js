@@ -10,7 +10,11 @@ $(function() {
   var reconnect = function() {
     reconnectIntervalId = setInterval(function(){
       if(conn.readyState !== 1){
+        console.log("Reconnecting.");
         connect();
+        if(conn.readyState === 1){
+          console.log("Connection reopened.");
+        }
       } else {
         clearInterval(reconnectIntervalId);
       }
@@ -20,6 +24,8 @@ $(function() {
   if (window["speechSynthesis"] && window["WebSocket"]) {
     if (!connect()){
       reconnect();
+    } else {
+      console.log("Connection opened.");
     }
 
     conn.onclose = function(e) {
